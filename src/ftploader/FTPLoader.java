@@ -7,7 +7,7 @@ import it.sauronsoftware.ftp4j.listparsers.DOSListParser;
 /**
  *
  * @author Adam Plánský FIT username:plansada email: plansada@fit.cvut.cz
- *
+ * OMGFG
  */
 public class FTPLoader {
 
