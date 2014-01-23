@@ -1,19 +1,23 @@
 package ftploader;
 
 import java.awt.Button;
+import java.awt.Label;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+import javax.swing.JLabel;
 import javax.swing.JList;
 
 import javax.swing.JScrollPane;
+import javax.swing.JViewport;
 
 public class FileComponent extends JScrollPane implements MouseListener {
 
     private File f;
     private JList fileList;
     private Boolean vertical;
-    private Button back;
+    private JLabel back;
 
     public FileComponent() {
         f = new File(System.getProperty("user.home"));
@@ -27,13 +31,25 @@ public class FileComponent extends JScrollPane implements MouseListener {
 
     private void ShowDir(File f) {
         fileList = new JList(f.listFiles());
-        vertical = true;
+        vertical = false;
         fileList.setCellRenderer(new FileRenderer(vertical));
         fileList.addMouseListener(this);
-        back = new Button("abcd");
-
+        back = new JLabel("back");
+        back.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    System.out.println("back");
+                }
+            }
+        });
+//        this.columnHeader.add(back);
+        JViewport jv2 = new JViewport();
+        jv2.setView(back);
+        //this.setRowHeader(jv2);
+        this.setColumnHeader(jv2);
+        
         this.viewport.add(fileList);
-        this.add(back);
+
     }
 
     private void ChangeDir(String path) {
